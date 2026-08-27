@@ -51,6 +51,37 @@ INSERT INTO `books` VALUES (1,'To Kill a Mockingbird','Harper Lee','Fiction','20
 UNLOCK TABLES;
 
 --
+-- Table structure for table `borrow`
+--
+
+DROP TABLE IF EXISTS `borrow`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `borrow` (
+  `borrow_id` int(11) NOT NULL AUTO_INCREMENT,
+  `student_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `borrow_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `borrow_return_date` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`borrow_id`),
+  KEY `fk_borrow_student` (`student_id`),
+  KEY `fk_borrow_book` (`book_id`),
+  CONSTRAINT `fk_borrow_book` FOREIGN KEY (`book_id`) REFERENCES `books` (`book_id`),
+  CONSTRAINT `fk_borrow_student` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `borrow`
+--
+
+LOCK TABLES `borrow` WRITE;
+/*!40000 ALTER TABLE `borrow` DISABLE KEYS */;
+INSERT INTO `borrow` VALUES (4,1,1,'2026-08-25 01:55:55',NULL),(5,2,1,'2026-08-25 01:55:55',NULL);
+/*!40000 ALTER TABLE `borrow` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `students`
 --
 
@@ -61,8 +92,10 @@ CREATE TABLE `students` (
   `student_first_name` varchar(50) NOT NULL,
   `student_last_name` varchar(50) NOT NULL,
   `student_course` varchar(50) NOT NULL,
-  `student_creat_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `student_creat_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `student_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`student_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,7 +104,7 @@ CREATE TABLE `students` (
 
 LOCK TABLES `students` WRITE;
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` VALUES ('HAZEL JANE','LIHOTAN','BSIT','2026-08-20 02:18:05'),('Hazel Jane','Lihotan','B.S IT','2026-08-20 02:27:24');
+INSERT INTO `students` VALUES ('HAZEL JANE','LIHOTAN','BSIT','2026-08-20 02:18:05',1),('Hazel Jane','Lihotan','B.S IT','2026-08-20 02:27:24',2);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -84,4 +117,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-08-25  9:36:27
+-- Dump completed on 2026-08-25 10:23:11
