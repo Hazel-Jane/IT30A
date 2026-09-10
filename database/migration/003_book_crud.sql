@@ -42,15 +42,15 @@ SELECT
     book_author,
     book_title
     FROM books
-    WHERE book_id = 1;
-    LIMIT 1;
+    WHERE book_id = 3;
+    LIMIT 3;
 
 -- Book Query #8 - update book title, author using specific id number
 UPDATE books
 SET
     book_title = 'The Great Gatsby',
     book_author = 'F. Scott Fitzgerald'
-WHERE book_id = 1;
+WHERE book_id = 3;
 
 
 
