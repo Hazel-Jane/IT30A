@@ -249,6 +249,22 @@ $stmt=$pdo->query("
     ");
     $books = $stmt->fetchAll();
 
+    $stmt = $pdo->query("
+        SELECT 
+            b.borrow_id,
+            b.borrow_date,
+            b.borrow_return_date,
+            s.student_first_name,
+            s.student_last_name,
+            bk.book_title,
+            bk.book_author
+        FROM borrow b
+        JOIN students s ON b.student_id = s.student_id
+        JOIN books bk ON b.book_id = bk.book_id
+        ORDER BY b.borrow_id DESC
+    ");
+    $borrows = $stmt->fetchAll();
+
 }
 
 // Borrow a Book
@@ -427,7 +443,7 @@ if($section === 'borrow' && $action === 'create') {
                 </form>
 
             <?php else: ?>
-        <table>
+        <table cellpadding="5">
             <thead>
                 <tr>
             <th>Student ID</th>
@@ -563,7 +579,7 @@ if($section === 'borrow' && $action === 'create') {
                 </form>
 
             <?php else: ?>
-        <table>
+        <table cellpadding="5">
             <thead>
                 <tr>
             <th>Book ID</th>
@@ -662,6 +678,66 @@ if($section === 'borrow' && $action === 'create') {
             </form>
 
     <?php endif; ?>
+
+    <h2>Borrow Records</h2>
+
+        <table cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Borrow ID</th>
+                    <th>Student Name</th>
+                    <th>Book Title</th>
+                    <th>Book Author</th>
+                    <th>Created At</th>
+                    <th>Returned At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <?php foreach($borrows as $borrow): ?>
+
+                    <tr>
+
+                        <td>
+                            <?= htmlspecialchars($borrow['borrow_id']) ?>
+                        </td>
+
+                        <td>
+                            <?= htmlspecialchars(
+                                $borrow['student_first_name']
+                                . " "
+                                . $borrow['student_last_name']
+                            ) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($borrow['book_title']) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($borrow['book_author']) ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($borrow['borrow_date']) ?>
+                        </td>
+
+                        <td>
+                            <?php if($borrow['borrow_return_date'] === null): ?>
+
+                                Not Returned
+
+                            <?php else: ?>
+
+                                <?= htmlspecialchars($borrow['borrow_return_date']) ?>
+
+                            <?php endif; ?>
+                        </td>
+
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </tbody>
+        </table>
 
 <?php endif; ?>
 
