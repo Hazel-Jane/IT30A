@@ -16,7 +16,7 @@ mysqldump -u root -p --databases lib_db > C:\Users\admin\IT30A\backups\08182026_
 mysqldump -u root -p --databases lib_db > "C:\Users\Admin\Documents\DEV\IT30A\backups\%date:~-4%_%date:~4,2%_%date~7,2%_%time:~0,2%_%time:~6,2%_lib_db.sql"
 
 mysqldump -u root -p --databases lib_db > "C:\Users\admin\IT30A\backups\%date:~-4%_%date:~4,2%_%date~7,2%_%time:~0,2%_%time:~6,2%_lib_db.sql"
-
+mysqldump -u root -p --databases it30a_lab_db >  "C:\xampp\htdocs\IT30A\backups\%date:~-4%_%date:~4,2%_%date~7,2%_%time:~0,2%_%time:~6,2%_it30a_lab_db(1).sql"
 
 
 ALTER TABLE students ADD COLUMN student_creat_at TIMESTAMP NULL DEFAULT NULL;

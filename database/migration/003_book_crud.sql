@@ -42,7 +42,7 @@ SELECT
     book_author,
     book_title
     FROM books
-    WHERE book_id = 1;
+    WHERE book_id = 1
     LIMIT 1;
 
 -- Book Query #8 - update book title, author using specific id number

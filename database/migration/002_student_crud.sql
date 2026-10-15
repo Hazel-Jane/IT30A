@@ -42,7 +42,7 @@ SELECT
     student_first_name,
     student_last_name
     FROM students
-    WHERE student_id = 1;
+    WHERE student_id = 1
     LIMIT 1;
 
 -- Student Query #9 - update student firstname, lastname using specific id number
